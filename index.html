@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Loop Thought Monitor</title>
+  <style>
+    :root{
+      --bg:#0b0f16;
+      --panel:#121826;
+      --ink:#e8eefc;
+      --muted:#a7b3cc;
+      --accent:#6ea8fe;
+      --danger:#ff6b6b;
+      --ring: 0 0 0 2px rgba(110,168,254,.3);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background: radial-gradient(1200px 800px at 10% -10%, #101625 0%, var(--bg) 45%) no-repeat;
+      color:var(--ink);
+    }
+    .wrap{
+      max-width:820px; margin:0 auto; padding:48px 20px 64px;
+    }
+    header{
+      display:flex; align-items:center; gap:14px; margin-bottom:22px;
+    }
+    .dot{
+      width:12px; height:12px; border-radius:50%; background:var(--danger); box-shadow:0 0 20px var(--danger);
+    }
+    h1{
+      font-size:clamp(28px, 4vw, 40px); margin:0; letter-spacing:.3px;
+    }
+    p.lead{color:var(--muted); margin:8px 0 22px; font-size:clamp(14px, 2.2vw, 16px)}
+
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      border:1px solid rgba(255,255,255,.06);
+      border-radius:18px; padding:18px; backdrop-filter: blur(6px);
+      box-shadow: 0 10px 30px rgba(0,0,0,.35);
+    }
+    .list{display:grid; gap:10px; margin:0; padding:0; list-style:none}
+    .item{
+      display:flex; align-items:center; justify-content:space-between; gap:16px;
+      background:var(--panel); border:1px solid rgba(255,255,255,.06);
+      border-radius:14px; padding:14px 16px;
+    }
+    .thought{display:flex; align-items:center; gap:12px;}
+    .badge{
+      font-variant-numeric: tabular-nums;
+      background:rgba(110,168,254,.12); color:var(--accent);
+      border:1px solid rgba(110,168,254,.35);
+      padding:4px 10px; border-radius:999px; font-weight:600;
+    }
+    .chip{
+      text-transform:uppercase; letter-spacing:.12em; font-size:11px; color:var(--muted);
+      border:1px dashed rgba(255,255,255,.2); padding:4px 8px; border-radius:999px;
+    }
+    .controls{display:flex; gap:10px; margin-top:14px}
+    button{
+      background:var(--panel); color:var(--ink); border:1px solid rgba(255,255,255,.12);
+      padding:10px 14px; border-radius:12px; font-weight:600; cursor:pointer;
+    }
+    button:hover{box-shadow:var(--ring)}
+    footer{margin-top:28px; color:var(--muted); font-size:12px; text-align:center}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="dot" aria-hidden="true"></div>
+      <h1>Loop Thought Monitor</h1>
+    </header>
+    <p class="lead">A tiny dashboard to catch recurring overthinking loops before they spiral.</p>
+
+    <div class="card" role="region" aria-label="Overthinking thoughts">
+      <ul class="list" id="thoughtList">
+        <li class="item">
+          <div class="thought">
+            <span class="chip">Loop</span>
+            <span>What if I mess this up?</span>
+          </div>
+          <span class="badge">427</span>
+        </li>
+        <li class="item">
+          <div class="thought">
+            <span class="chip">Loop</span>
+            <span>Everyone's judging me.</span>
+          </div>
+          <span class="badge">8921</span>
+        </li>
+        <li class="item">
+          <div class="thought">
+            <span class="chip">Loop</span>
+            <span>I'm already behind; I'll never catch up.</span>
+          </div>
+          <span class="badge">63</span>
+        </li>
+        <li class="item">
+          <div class="thought">
+            <span class="chip">Loop</span>
+            <span>One mistake will ruin everything.</span>
+          </div>
+          <span class="badge">5102</span>
+        </li>
+        <li class="item">
+          <div class="thought">
+            <span class="chip">Loop</span>
+            <span>They haven't replied—did I do something wrong?</span>
+          </div>
+          <span class="badge">718</span>
+        </li>
+      </ul>
+      <div class="controls">
+        <button id="randomize">Shuffle Numbers</button>
+        <button id="toggle">Toggle Theme</button>
+      </div>
+    </div>
+
+    <footer>
+      Tip: Notice the loop, label it, and return to what matters.
+    </footer>
+  </div>
+
+  <script>
+    // Shuffle numbers for a fresh view
+    document.getElementById('randomize').addEventListener('click', () => {
+      document.querySelectorAll('.badge').forEach(b => {
+        b.textContent = Math.floor(Math.random()*9999)+1; // 1..9999
+      });
+    });
+
+    // Simple theme toggle (dark <-> darker)
+    const root = document.documentElement;
+    let darker = false;
+    document.getElementById('toggle').addEventListener('click', () => {
+      darker = !darker;
+      root.style.setProperty('--bg', darker ? '#070a10' : '#0b0f16');
+      root.style.setProperty('--panel', darker ? '#0d1220' : '#121826');
+      root.style.setProperty('--accent', darker ? '#9fc1ff' : '#6ea8fe');
+    });
+  </script>
+</body>
+</html>
