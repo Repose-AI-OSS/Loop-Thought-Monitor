@@ -124,13 +124,6 @@
   </div>
 
   <script>
-    // Shuffle numbers for a fresh view
-    document.getElementById('randomize').addEventListener('click', () => {
-      document.querySelectorAll('.badge').forEach(b => {
-        b.textContent = Math.floor(Math.random()*9999)+1; // 1..9999
-      });
-    });
-
     // Simple theme toggle (dark <-> darker)
     const root = document.documentElement;
     let darker = false;
